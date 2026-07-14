@@ -29,6 +29,7 @@ export interface CurrencyOption {
  */
 export const CURRENCIES: CurrencyOption[] = [
   { code: "USD", label: "US Dollar", symbol: "$" },
+  { code: "PEN", label: "Sol Peruano", symbol: "S/" },
   { code: "EUR", label: "Euro", symbol: "€" },
   { code: "GBP", label: "British Pound", symbol: "£" },
   { code: "INR", label: "Indian Rupee", symbol: "₹" },
@@ -67,14 +68,15 @@ export function formatCurrency(
     return new Intl.NumberFormat(undefined, {
       style: "currency",
       currency: code,
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
+      minimumFractionDigits: code === "PEN" ? 2 : 0,
+      maximumFractionDigits: code === "PEN" ? 2 : 0,
     }).format(amount);
   } catch {
     // Invalid ISO code — show the raw code + grouped number so the
     // value is still legible instead of throwing.
     return `${code} ${new Intl.NumberFormat(undefined, {
-      maximumFractionDigits: 0,
+      minimumFractionDigits: code === "PEN" ? 2 : 0,
+      maximumFractionDigits: code === "PEN" ? 2 : 0,
     }).format(amount)}`;
   }
 }

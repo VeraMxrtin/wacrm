@@ -22,8 +22,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "wacrm",
-    template: "%s — wacrm",
+    default: "VeraFlow",
+    template: "%s — VeraFlow",
   },
   description: "Self-hostable CRM template for WhatsApp.",
   robots: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     follow: false,
   },
   icons: {
-    icon: [{ url: "/icon" }],
+    icon: [{ url: "/logo.png" }],
   },
   formatDetection: {
     email: false,

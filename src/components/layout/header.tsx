@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
 import { LogOut, Menu, Settings as SettingsIcon, User } from "lucide-react";
@@ -68,6 +69,13 @@ export function Header({ onOpenSidebar }: HeaderProps) {
         >
           <Menu className="h-5 w-5" />
         </button>
+        <div className="flex items-center gap-2 lg:hidden mr-1">
+          <Image src="/logo.png" alt="VeraFlow" width={24} height={24} className="rounded-md" />
+          <span className="text-sm font-bold tracking-tight text-foreground font-sans">
+            VeraFlow
+          </span>
+        </div>
+        <div className="w-px h-4 bg-border hidden sm:block lg:hidden mx-1" />
         <h1 className="truncate text-base font-semibold text-foreground sm:text-lg">
           {t(titleKey as string)}
         </h1>

@@ -3,6 +3,7 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -69,15 +70,26 @@ function LoginPageInner() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <Card className="w-full max-w-md border-border bg-card">
+    <div className="flex min-h-screen lg:flex-row-reverse">
+      <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center overflow-hidden border-l border-border bg-muted">
+        <div className="absolute inset-0 bg-primary/10 z-10 mix-blend-overlay"></div>
+        <Image 
+          src="/dashboard-login.png" 
+          alt="VeraFlow Dashboard" 
+          fill 
+          className="object-cover object-left-top opacity-90" 
+          priority 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent z-10"></div>
+      </div>
+      <div className="flex flex-1 items-center justify-center bg-background px-4 py-12">
+        <Card className="w-full max-w-md border-border bg-card shadow-2xl">
         <CardHeader className="items-center text-center">
-          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-            {inviteToken ? (
-              <UsersRound className="h-6 w-6 text-primary" />
-            ) : (
-              <MessageSquare className="h-6 w-6 text-primary" />
-            )}
+          <div className="mb-4 flex flex-col items-center justify-center gap-2">
+            <Image src="/logo.png" alt="VeraFlow Logo" width={48} height={48} className="rounded-xl" />
+            <span className="text-2xl font-bold tracking-tight text-foreground font-sans">
+              VeraFlow
+            </span>
           </div>
           <CardTitle className="text-xl text-foreground">
             {inviteToken ? t('titleAccept') : t('titleWelcome')}
@@ -143,21 +155,20 @@ function LoginPageInner() {
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-muted-foreground">
-            {t('noAccount')}{" "}
-            <Link
-              href={
-                inviteToken
-                  ? `/signup?invite=${encodeURIComponent(inviteToken)}`
-                  : "/signup"
-              }
-              className="text-primary hover:text-primary/80"
-            >
-              {t('createAccount')}
-            </Link>
-          </p>
+          {inviteToken && (
+            <p className="mt-6 text-center text-sm text-muted-foreground">
+              {t('noAccount')}{" "}
+              <Link
+                href={`/signup?invite=${encodeURIComponent(inviteToken)}`}
+                className="text-primary hover:text-primary/80"
+              >
+                {t('createAccount')}
+              </Link>
+            </p>
+          )}
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
